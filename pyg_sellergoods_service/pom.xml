@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>pyg_parent</artifactId>
+        <groupId>cn.zs</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+<packaging>war</packaging>
+    <dependencies>
+        <dependency>
+            <groupId>cn.zs</groupId>
+            <artifactId>pyg_sellergoods_interface</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>cn.zs</groupId>
+            <artifactId>pyg_dao</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+    <artifactId>pyg_sellergoods_service</artifactId>
+
+<build>
+    <plugins>
+
+            <!-- 配置Tomcat插件 -->
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <port>9001</port>
+                    <path>/</path><!-- 相当于工程名称，一旦配置了/，那么在访问时可以省略工程名称 -->
+                </configuration>
+
+        </plugin>
+    </plugins>
+</build>
+</project>

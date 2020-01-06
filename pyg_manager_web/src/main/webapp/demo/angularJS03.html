@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>入门demo03-控制器</title>
+    <script src="../plugins/angularjs/angular.min.js"></script>
+
+    <script>
+      //js代码要写在script标签中
+      //$scope:相当于Html和js数据交互的入口。
+        function controller1($scope) {
+            $scope.name="zhangsan"
+        }
+        function controller2($scope) {
+            $scope.name="lisi"
+        }
+          </script>
+</head>
+<body ng-app>
+<!--表示div标签中受到控制器controller1的控制。-->
+<div ng-controller="controller1">
+    {{name}}
+</div>
+<!--表示div标签中受到控制器controller2的控制。-->
+<div ng-controller="controller2">
+    {{name}}
+</div>
+</body>
+</html>

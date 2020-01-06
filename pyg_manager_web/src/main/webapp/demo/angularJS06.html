@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>内置服务$http</title>
+    <script src="../plugins/angularjs/angular.min.js"></script>
+
+    <script>
+        //模块化设计可以更好的管理js对象和函数
+        var app = angular.module("myApp", [])//模块化的语法，myApp---模块名称。
+        app.controller("myController", function ($scope, $http) {
+         $scope.findAll=function () {
+             $http.get("../brand/findAll").success(function (response) {
+                 $scope.list=response;
+             })
+         }
+        })
+    </script>
+</head>
+<body ng-app="myApp" ng-controller="myController" ng-init="findAll()">
+<div ng-repeat="pojo in list">
+    我是序号：{{$index}}:{{pojo.firstChar}},{{pojo.name}}
+</div>
+
+</body>
+</html>

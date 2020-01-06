@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>循环</title>
+    <script src="../plugins/angularjs/angular.min.js"></script>
+
+    <script>
+     //模块化设计可以更好的管理js对象和函数
+        var app=angular.module("myApp",[])//模块化的语法，myApp---模块名称。
+        app.controller("myController",function ($scope) {
+            $scope.show=function () {
+                //对象数组
+               $scope.list001=[{"username":"lisi123456789","age":18},
+                   {"username":"zhangshan","age":22},
+                   {"username":"wangxiaoer","age":001}]
+                //普通数组
+                $scope.list002=[12,13,45,56,89]
+            }
+
+        })
+    </script>
+</head>
+<body ng-app="myApp" ng-controller="myController" ng-init="show()">
+<div ng-repeat="pojo in list001">
+    {{pojo.username}}
+</div>
+<div ng-repeat="pojo in list002">
+    {{pojo}}
+</div>
+</body>
+</html>

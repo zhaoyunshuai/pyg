@@ -1,0 +1,42 @@
+AngularJS是一款前端JS框架。
+核心特征：MVC，模块化，双向绑定，依赖注入。
+    MVC
+        Model：数据，其实就是AngularJS变量($scope.XX)
+        View：数据的呈现，Html+Directive(指令)
+        Controller：操作数据，就是function，数据的增删改查。
+    双向绑定
+        支持视图和数据之间进行自动同步
+    模块化
+        模块化的设计有利于代码的重用
+        模块化的两种方式
+            1.官方方式:ng,ngRoute,ngAnimate....
+            2.自定义方式 angular.module('模块名'[])
+    依赖注入
+        依赖注入是一种设计模式
+        框架自动创建模块中的Service和Provider。
+        框架根据形参名称实现DI
+    和JQ一样，在使用angularJS之前需要先导入angularJS所需要的js包。
+    <script src="相对路径">
+    ng-app：定义在html标签上，表示该标签内所包裹的区域为angularJS的编码区域
+    {{}}：angularJS中的表达式都要放在双大括号之内
+    ng-model：用于将变量绑定到输入元素上，可以有{{}}获取并输出变量。
+    ng-init:初始化时间
+    ng-repeat：用于循环，可以循环遍历数组也可以循环遍历对象。
+    ng-click:点击事件
+    $scope:html和js数据交互的入口
+    $http:angularJS的内置服务，用于发送Http请求。
+
+angularJS分页：
+    1.添加分页需要的css和js
+    2.修改模块定义代码 var app=angular.module("app名称",[])--->var app = ("app名称",[pagination])
+    3.在需要分页的table下面添加一个<tm-pagination conf="paginationConf"/>
+    4.在控制器中添加一个paginationConf 对象。
+        $scope.paginationConf={
+            currentPage:1,//当前页码
+            totalItems:100,//总条数
+            itemsPage:10,//每页显示的条数
+            perPageOptions:[10,20,30,40]//选择每页显示的条数
+            onChange:function(){
+                $scope.reloadList();//重新加载
+             }
+        }
