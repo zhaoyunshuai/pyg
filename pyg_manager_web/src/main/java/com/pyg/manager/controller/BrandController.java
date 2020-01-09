@@ -4,6 +4,7 @@ import bean.PageResult;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.pyg.pojo.TbBrand;
 import com.pyg.sellergoods.service.TbBrandService;
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import entity.Result;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,10 +59,20 @@ public class BrandController {
         return result;
     }
 
+    /**
+     * 修改品牌数据方法
+     * @param brand 修改后的品牌数据
+     * @return Result 修改结果
+     */
     @RequestMapping("/update")
-    public Result updateBrandById() {
-        //todo 修改方法，有待完善
-        return new Result();
+    public Result updateBrandById(@RequestBody TbBrand brand) {
+        try {
+            tbBrandService.updateBrandById(brand);
+            return  new Result(true,"修改成功");
+        } catch (Exception e) {
+            return  new Result(false,"修改失败"+e.getMessage());
+        }
+
     }
 
     /**
@@ -73,4 +84,15 @@ public class BrandController {
     public TbBrand findBrandById(Integer id) {
         return tbBrandService.findBrandById(id);
     }
+    @RequestMapping("/delete")
+    public Result deleteBrandByByIds(Long[] ids) {
+        try {
+            tbBrandService.deleteBrandByByIds(ids);
+            return new Result(true,"删除成功");
+        } catch (Exception e) {
+            return new Result(false,"删除失败"+e.getMessage());
+        }
+    }
+
+
 }

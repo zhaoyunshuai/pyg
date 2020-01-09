@@ -2,7 +2,6 @@ package com.pyg.sellergoods.service;
 
 import bean.PageResult;
 import com.pyg.pojo.TbBrand;
-import entity.Result;
 
 import java.util.List;
 
@@ -38,4 +37,13 @@ public interface TbBrandService {
      * @return TbBrand brand 品牌数据
      */
     public TbBrand findBrandById(Integer id);
+
+    /**
+     * 根据品牌Id,修改品牌数据
+     * @param tbBrand
+     * @return
+     */
+    public void updateBrandById(TbBrand tbBrand);
+
+    public void  deleteBrandByByIds(Long[] ids);
 }

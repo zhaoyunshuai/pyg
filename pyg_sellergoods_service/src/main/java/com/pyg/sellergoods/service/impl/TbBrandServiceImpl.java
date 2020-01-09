@@ -7,7 +7,6 @@ import com.github.pagehelper.PageHelper;
 import com.pyg.mapper.TbBrandMapper;
 import com.pyg.pojo.TbBrand;
 import com.pyg.sellergoods.service.TbBrandService;
-import entity.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -40,5 +39,17 @@ public class TbBrandServiceImpl implements TbBrandService {
     public TbBrand findBrandById(Integer id) {
 
         return tbBrandMapper.findBrandById(id);
+    }
+
+    @Override
+    public void updateBrandById(TbBrand tbBrand) {
+
+        tbBrandMapper.updateBrandById(tbBrand);
+
+    }
+
+    @Override
+    public void deleteBrandByByIds(Long[] ids) {
+        tbBrandMapper.deleteBrandByByIds(ids);
     }
 }

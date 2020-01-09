@@ -27,4 +27,15 @@
 
         SELECT id,name,first_char as firstChar FROM tb_brand WHERE ID=#{id}
     </select>
+
+    <update id="updateBrandById" parameterType="TbBrand">
+        update tb_brand set name=#{name},first_char=#{firstChar} where id=#{id}
+    </update>
+
+    <delete id="deleteBrandByByIds" >
+        delete  from tb_brand where id in
+        <foreach collection="ids" open="(" item="id" close=")" separator="," >
+      #{id}
+    </foreach>
+    </delete>
 </mapper>

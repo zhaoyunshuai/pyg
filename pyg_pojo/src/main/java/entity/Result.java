@@ -6,6 +6,14 @@ public class Result implements Serializable {
     private boolean success;
     private String msg;
 
+    public Result() {
+    }
+
+    public Result(boolean success, String msg) {
+        this.success = success;
+        this.msg = msg;
+    }
+
     @Override
     public String toString() {
         return "Result{" +
