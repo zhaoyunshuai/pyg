@@ -32,4 +32,6 @@ public interface TbBrandMapper {
      * @param ids
      */
     void deleteBrandByByIds(@Param("ids")Long[] ids);
+
+    List<TbBrand> searchBrand(TbBrand brand);
 }

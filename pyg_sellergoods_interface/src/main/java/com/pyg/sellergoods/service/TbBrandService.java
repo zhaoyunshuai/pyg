@@ -46,4 +46,6 @@ public interface TbBrandService {
     public void updateBrandById(TbBrand tbBrand);
 
     public void  deleteBrandByByIds(Long[] ids);
+
+    PageResult searchBrand(Integer pageNo, Integer pageSize, TbBrand brand);
 }

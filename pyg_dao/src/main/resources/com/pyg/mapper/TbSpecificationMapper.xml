@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+   mapper标签:配置各类声明
+   namespace：名称空间，由于映射文件可能有多个，为了防止crud语句的唯一标识被重复，需要设置空间名称。
+ -->
+
+<mapper namespace="com.pyg.mapper.TbSpecificationMapper">
+    <!--
+        select:查询的statement（声明），用来编写查询语句
+        id:语句的唯一标识
+        resultType：配置返回的结果集类型
+        parameterType：传递的参数类型，可以省略
+    -->
+    <!--注意此处没有进行配置驼峰匹配，所以需要自己进行映射-->
+    <select id="findAll" resultType="com.pyg.pojo.TbSpecification">
+   select id, spec_name as specName from tb_specification
+</select>
+    <!--主键自增回显
+    useGeneratedKeys:开启主键自增回显
+    keyProperty:主键对应的BO中的属性值
+    keyColumn:主键在表中的字段名
+    -->
+    <insert id="addSpecification" parameterType="TbSpecification" useGeneratedKeys="true" keyProperty="id"
+            keyColumn="id">
+
+        insert INTO tb_specification values(#{id},#{specName})
+    </insert>
+    <!--注意此处没有进行配置驼峰匹配，所以需要自己进行映射-->
+    <select id="findSpecificationById" resultType="TbSpecification" parameterType="java.lang.Integer">
+
+        SELECT id,spec_name as specName FROM tb_specification WHERE ID=#{id}
+    </select>
+
+    <update id="updateSpecificationById" parameterType="TbSpecification">
+        update tb_specification set spec_name=#{specName} where id=#{id}
+    </update>
+
+    <delete id="deleteSpecificationByByIds">
+        delete from tb_specification where id in
+        <foreach collection="ids" open="(" item="id" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="searchSpecification" resultType="TbSpecification" parameterType="TbSpecification">
+        select id,spec_name as specName from tb_specification
+        <where>
+            <if test="specName!=null and specName!=''">
+                and name like "%"#{specName}"%"
+            </if>
+        </where>
+    </select>
+</mapper>

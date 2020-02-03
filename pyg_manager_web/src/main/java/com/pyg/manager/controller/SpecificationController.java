@@ -2,9 +2,10 @@ package com.pyg.manager.controller;
 
 import bean.PageResult;
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.pyg.pojo.TbBrand;
-import com.pyg.sellergoods.service.TbBrandService;
+import com.pyg.pojo.TbSpecification;
+import com.pyg.sellergoods.service.TbSpecificationService;
 import entity.Result;
+import groupEntity.Specification;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,10 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController//此处要用此注解，不然返回值是页面，而不是JSON格式的数据。
-@RequestMapping("/brand")
-public class BrandController {
+@RequestMapping("/specification")
+public class SpecificationController {
     @Reference//注入dubbo容器中的service对象
-            TbBrandService tbBrandService;
+            TbSpecificationService tbSpecificationService;
 
     /**
      * 查询所有品牌数据
@@ -23,8 +24,8 @@ public class BrandController {
      * @return
      */
     @RequestMapping("/findAll")
-    public List<TbBrand> findAll() {
-        return tbBrandService.findAll();
+    public List<TbSpecification> findAll() {
+        return tbSpecificationService.findAll();
     }
 
     /**
@@ -36,20 +37,20 @@ public class BrandController {
      */
     @RequestMapping("/findPage")
     public PageResult findPage(Integer pageNo, Integer pageSize) {
-        return tbBrandService.findAll(pageNo, pageSize);
+        return tbSpecificationService.findAll(pageNo, pageSize);
     }
 
     /**
      * 新增数据
      *
-     * @param brand
+     * @param specification
      * @return
      */
     @RequestMapping("/add")
-    public Result add(@RequestBody TbBrand brand) {
+    public Result add(@RequestBody Specification specification) {
         Result result = new Result();
         try {
-            tbBrandService.add(brand);
+            tbSpecificationService.add(specification);
             result.setSuccess(true);
         } catch (Exception e) {
             result.setSuccess(false);
@@ -60,47 +61,51 @@ public class BrandController {
 
     /**
      * 修改品牌数据方法
-     * @param brand 修改后的品牌数据
+     *
+     * @param specification 修改后的品牌数据
      * @return Result 修改结果
      */
     @RequestMapping("/update")
-    public Result updateBrandById(@RequestBody TbBrand brand) {
+    public Result updateSpecificationById(@RequestBody Specification specification) {
         try {
-            tbBrandService.updateBrandById(brand);
-            return  new Result(true,"修改成功");
+            tbSpecificationService.updateSpecificationById(specification);
+            return new Result(true, "修改成功");
         } catch (Exception e) {
-            return  new Result(false,"修改失败"+e.getMessage());
+            return new Result(false, "修改失败" + e.getMessage());
         }
 
     }
 
     /**
      * 根据品牌Id,查询品牌数据
+     *
      * @param id
      * @return
      */
     @RequestMapping("/findOne")
-    public TbBrand findBrandById(Integer id) {
-        return tbBrandService.findBrandById(id);
+    public Specification findSpecificationById(Integer id) {
+        return tbSpecificationService.findSpecificationById(id);
     }
+
     @RequestMapping("/delete")
-    public Result deleteBrandByByIds(Long[] ids) {
+    public Result deleteSpecificationByByIds(Long[] ids) {
         try {
-            tbBrandService.deleteBrandByByIds(ids);
-            return new Result(true,"删除成功");
+            tbSpecificationService.deleteSpecificationByByIds(ids);
+            return new Result(true, "删除成功");
         } catch (Exception e) {
-            return new Result(false,"删除失败"+e.getMessage());
+            return new Result(false, "删除失败" + e.getMessage());
         }
     }
 
     /**
      * 修改品牌数据方法
-     * @param brand 修改后的品牌数据
+     *
+     * @param specification 修改后的品牌数据
      * @return Result 修改结果
      */
     @RequestMapping("/search")
-    public PageResult searchTbBrand(Integer pageNo, Integer pageSize,@RequestBody TbBrand brand) {
+    public PageResult searchTbSpecification(Integer pageNo, Integer pageSize, @RequestBody TbSpecification specification) {
 
-return tbBrandService.searchBrand(pageNo,pageSize,brand);
+        return tbSpecificationService.searchSpecification(pageNo, pageSize, specification);
     }
 }

@@ -18,6 +18,7 @@
     <!--分页插件所需的js-->
     <script src="../plugins/angularjs/pagination.js"></script>
     <script src="../js/base-pagination.js"></script>
+    <script src="../js/controller/baseController.js"></script>
     <script src="../js/controller/brandController.js"></script>
     <script src="../js/service/brandService.js"></script>
 
@@ -27,6 +28,7 @@
 <!-- .box-body -->
 <div class="box-header with-border">
     <h3 class="box-title">品牌管理selectIds:{{selectIds}}</h3>
+
 </div>
 
 <div class="box-body">
@@ -39,7 +41,7 @@
             <div class="form-group form-inline">
                 <div class="btn-group">
                     <button type="button" class="btn btn-default" title="新建" data-toggle="modal"
-                            data-target="#editModal"><i class="fa fa-file-o"></i> 新建
+                         ng-click="brand={}"   data-target="#editModal"><i class="fa fa-file-o"></i> 新建
                     </button>
                     <button type="button" class="btn btn-default" title="删除" ng-click="delete()"><i class="fa fa-trash-o"></i> 删除</button>
                     <button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i
@@ -50,7 +52,7 @@
         </div>
         <div class="box-tools pull-right">
             <div class="has-feedback">
-
+                名称<input ng-model="searchEntity.name"> 首字母<input ng-model="searchEntity.firstChar"><button id="search" ng-click="search()">查询</button>
             </div>
         </div>
         <!--工具栏/-->

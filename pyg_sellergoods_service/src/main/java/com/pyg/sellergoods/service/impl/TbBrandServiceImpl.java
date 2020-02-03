@@ -52,4 +52,14 @@ public class TbBrandServiceImpl implements TbBrandService {
     public void deleteBrandByByIds(Long[] ids) {
         tbBrandMapper.deleteBrandByByIds(ids);
     }
+
+    @Override
+    public PageResult searchBrand(Integer pageNo, Integer pageSize, TbBrand brand) {
+        PageHelper.startPage(pageNo,pageSize);
+        Page<TbBrand> page= (Page<TbBrand>) tbBrandMapper.searchBrand(brand);
+        List<TbBrand> rows = page.getResult();
+        long total = page.getTotal();
+        PageResult pageResult = new PageResult(total, rows);
+        return pageResult;
+    }
 }

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+   mapper标签:配置各类声明
+   namespace：名称空间，由于映射文件可能有多个，为了防止crud语句的唯一标识被重复，需要设置空间名称。
+ -->
+
+<mapper namespace="com.pyg.mapper.TbSpecificationOptionMapper">
+    <!--
+        select:查询的statement（声明），用来编写查询语句
+        id:语句的唯一标识
+        resultType：配置返回的结果集类型
+        parameterType：传递的参数类型，可以省略
+    -->
+    <!--注意此处没有进行配置驼峰匹配，所以需要自己进行映射-->
+    <select id="findAll" resultType="com.pyg.pojo.TbSpecificationOption">
+   select id, option_name as optionName,spec_id as specId ,orders from tb_specification_option
+</select>
+
+    <insert id="addOption" parameterType="TbSpecificationOption">
+        insert INTO tb_specification_option values(#{id},#{optionName},#{specId},#{orders})
+    </insert>
+    <!--注意此处没有进行配置驼峰匹配，所以需要自己进行映射-->
+    <select id="findOptionById" resultType="TbSpecificationOption" parameterType="java.lang.Integer">
+
+        SELECT id, option_name as optionName,spec_id as specId ,orders FROM tb_specification_option WHERE spec_id=#{specId}
+    </select>
+
+    <update id="updateOptionById" parameterType="TbSpecificationOption">
+        update tb_specification_option set option_name=#{optionName},spec_id=#{specId} ,orders=#{orders} where id=#{id}
+    </update>
+
+    <delete id="deleteOptionByByIds">
+        delete from tb_specification_option where id in
+        <foreach collection="ids" open="(" item="id" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="searchOption" resultType="TbSpecificationOption" parameterType="TbSpecificationOption">
+        select id, option_name as optionName,spec_id as specId ,orders from tb_specification_option
+        <where>
+            <if test="name!=null and name!=''">
+                and name like "%"#{specName}"%"
+            </if>
+        </where>
+    </select>
+</mapper>
