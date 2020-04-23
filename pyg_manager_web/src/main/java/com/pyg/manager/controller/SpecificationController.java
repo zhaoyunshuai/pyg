@@ -1,111 +1,81 @@
 package com.pyg.manager.controller;
 
 import bean.PageResult;
+import bean.Result;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.pyg.pojo.TbSpecification;
-import com.pyg.sellergoods.service.TbSpecificationService;
-import entity.Result;
+import com.pyg.sellergoods.service.SpecificationService;
 import groupEntity.Specification;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
-@RestController//此处要用此注解，不然返回值是页面，而不是JSON格式的数据。
+@RestController
 @RequestMapping("/specification")
 public class SpecificationController {
-    @Reference//注入dubbo容器中的service对象
-            TbSpecificationService tbSpecificationService;
 
-    /**
-     * 查询所有品牌数据
-     *
-     * @return
-     */
+    @Reference  //远程注入
+    private SpecificationService specificationService;
+
+    @RequestMapping("/findSpecList")
+    public List<Map> findSpecList(){
+        return specificationService.findSpecList();
+    }
     @RequestMapping("/findAll")
-    public List<TbSpecification> findAll() {
-        return tbSpecificationService.findAll();
+    public List<TbSpecification> findAll(){
+        return specificationService.findAll();
     }
-
-    /**
-     * 分页查询所有品牌数据
-     *
-     * @param pageNo
-     * @param pageSize
-     * @return
-     */
     @RequestMapping("/findPage")
-    public PageResult findPage(Integer pageNo, Integer pageSize) {
-        return tbSpecificationService.findAll(pageNo, pageSize);
+    public PageResult findPage(Integer pageNo, Integer pageSize){
+//        {total:100,rows:[{},{}]}
+        return specificationService.findPage(pageNo,pageSize);
+//        return null;
     }
-
-    /**
-     * 新增数据
-     *
-     * @param specification
-     * @return
-     */
     @RequestMapping("/add")
-    public Result add(@RequestBody Specification specification) {
-        Result result = new Result();
+    public Result add(@RequestBody Specification specification){ //@RequestBody是用来接收json数据的
+//        {success:true|false,message:"添加成功"|"添加失败"}
         try {
-            tbSpecificationService.add(specification);
-            result.setSuccess(true);
+            specificationService.add(specification);
+            return new Result(true,"添加成功");
         } catch (Exception e) {
-            result.setSuccess(false);
-            result.setMsg("添加品牌出错：" + e.getMessage());
+            e.printStackTrace();
+            return new Result(false,"添加失败");
         }
-        return result;
+//        return null;
     }
-
-    /**
-     * 修改品牌数据方法
-     *
-     * @param specification 修改后的品牌数据
-     * @return Result 修改结果
-     */
+    @RequestMapping("/fineOne")
+    public Specification fineOne(Long id){
+          return   specificationService.fineOne(id);
+//        return null;
+    }
     @RequestMapping("/update")
-    public Result updateSpecificationById(@RequestBody Specification specification) {
+    public Result update(@RequestBody Specification specification){ //@RequestBody是用来接收json数据的
         try {
-            tbSpecificationService.updateSpecificationById(specification);
-            return new Result(true, "修改成功");
+            specificationService.update(specification);
+            return new Result(true,"修改成功");
         } catch (Exception e) {
-            return new Result(false, "修改失败" + e.getMessage());
+            e.printStackTrace();
+            return new Result(false,"修改失败");
         }
-
     }
-
-    /**
-     * 根据品牌Id,查询品牌数据
-     *
-     * @param id
-     * @return
-     */
-    @RequestMapping("/findOne")
-    public Specification findSpecificationById(Integer id) {
-        return tbSpecificationService.findSpecificationById(id);
-    }
-
-    @RequestMapping("/delete")
-    public Result deleteSpecificationByByIds(Long[] ids) {
+    @RequestMapping("/dele")
+    public Result dele(Long[] ids){ //@RequestBody是用来接收json数据的
         try {
-            tbSpecificationService.deleteSpecificationByByIds(ids);
-            return new Result(true, "删除成功");
+            specificationService.dele(ids);
+            return new Result(true,"删除成功");
         } catch (Exception e) {
-            return new Result(false, "删除失败" + e.getMessage());
+            e.printStackTrace();
+            return new Result(false,"删除失败");
         }
     }
 
-    /**
-     * 修改品牌数据方法
-     *
-     * @param specification 修改后的品牌数据
-     * @return Result 修改结果
-     */
     @RequestMapping("/search")
-    public PageResult searchTbSpecification(Integer pageNo, Integer pageSize, @RequestBody TbSpecification specification) {
-
-        return tbSpecificationService.searchSpecification(pageNo, pageSize, specification);
+    public PageResult search(Integer pageNo, Integer pageSize,@RequestBody TbSpecification tbSpecification){
+//        {total:100,rows:[{},{}]}
+        return specificationService.findPage(pageNo,pageSize,tbSpecification);
+//        return null;
     }
 }

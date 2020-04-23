@@ -1,36 +1,39 @@
-//主要是和后端进行交互，不和html以及数据的绑定进行交互。
+// 业务逻辑层 和后台数据交互 不出现$scope
 app.service("specificationService",function ($http) {
-    this.reloadList = function (currentPage,itemsPerPage) {
-        return $http.get("../specification/findPage?pageNo=" + currentPage + "&pageSize=" + itemsPerPage);
+
+    this.findSpecList=function () {
+       return $http.get("../specification/findSpecList");
     }
-    //页面加载时查询所有品牌数据方法
-    this.findAll = function () {
-        return $http.get("../specification/findAll");
-    }
-    //新增方法
-    this.add=function (specification) {
-        return $http.post("../specification/add",specification);
-    }
-    //修改方法
-    this.update=function (specification) {
-       return $http.post("../specification/update",specification);
+    this.findAll=function () {
+       return $http.get("../specification/findAll");
     }
 
-    //根据品牌Id，查询品牌数据。用于数据的回显
+    // 保存方法
+
+    this.add=function (entity) {
+       return $http.post("../specification/add",entity);
+    }
+    this.update=function (entity) {
+        return $http.post("../specification/update",entity);
+    }
+
+
+
+    // 根据id查询对象
     this.findOne=function (id) {
-       return $http.get("../specification/findOne?id="+id);
+       return $http.get("../specification/fineOne?id="+id);
     }
-       //删除数据，真实中应该是逻辑删除，而不是真正的删除。其实就是更新。
-    this.delete=function (selectIds) {
-        if(selectIds.length==0){
-            alert("请选择要删除的品牌数据")
-            return;
-        }else{
-            window.confirm("确定要删除数据吗？");
-           return  $http.post("../specification/delete?ids="+selectIds);
-        }
-    };
-    this.search=function (currentPage,itemsPerPage,searchEntity) {
-        return $http.post("../specification/search?pageNo=" + currentPage + "&pageSize=" + itemsPerPage,searchEntity);
+
+
+    // 删除
+    this.dele=function (selectIds) {
+           return $http.get("../specification/dele?ids="+selectIds);
     }
+
+
+    this.search=function (pageNo,pageSize,searchEntity) {
+        // $scope.searchEntity   页码  条数
+        return $http.post("../specification/search?pageNo="+pageNo+"&pageSize="+pageSize,searchEntity);
+    }
+
 })

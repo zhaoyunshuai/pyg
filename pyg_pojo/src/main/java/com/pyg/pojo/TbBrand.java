@@ -3,26 +3,19 @@ package com.pyg.pojo;
 import java.io.Serializable;
 
 public class TbBrand implements Serializable {
-    private long id;
+    private Long id;
 
     private String name;
 
     private String firstChar;
 
-    @Override
-    public String toString() {
-        return "TbBrand{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", firstChar='" + firstChar + '\'' +
-                '}';
-    }
+    private static final long serialVersionUID = 1L;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -31,7 +24,7 @@ public class TbBrand implements Serializable {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = name == null ? null : name.trim();
     }
 
     public String getFirstChar() {
@@ -39,6 +32,6 @@ public class TbBrand implements Serializable {
     }
 
     public void setFirstChar(String firstChar) {
-        this.firstChar = firstChar;
+        this.firstChar = firstChar == null ? null : firstChar.trim();
     }
 }

@@ -6,14 +6,12 @@ import com.pyg.pojo.TbSpecificationOption;
 import java.io.Serializable;
 import java.util.List;
 
-/**
- * 组合类用于封装规格个规格小项。
- */
+//规格和规格小项的组合类
 public class Specification implements Serializable {
-    //规格
+
     private TbSpecification tbSpecification;
-    //规格小项
-    private List<TbSpecificationOption> optionList;
+
+    private List<TbSpecificationOption> tbSpecificationOptionList;
 
     public TbSpecification getTbSpecification() {
         return tbSpecification;
@@ -23,11 +21,11 @@ public class Specification implements Serializable {
         this.tbSpecification = tbSpecification;
     }
 
-    public List<TbSpecificationOption> getOptionList() {
-        return optionList;
+    public List<TbSpecificationOption> getTbSpecificationOptionList() {
+        return tbSpecificationOptionList;
     }
 
-    public void setOptionList(List<TbSpecificationOption> optionList) {
-        this.optionList = optionList;
+    public void setTbSpecificationOptionList(List<TbSpecificationOption> tbSpecificationOptionList) {
+        this.tbSpecificationOptionList = tbSpecificationOptionList;
     }
 }

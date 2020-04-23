@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>cn.zs</groupId>
+    <groupId>com.pyg</groupId>
     <artifactId>pyg_parent</artifactId>
     <version>1.0-SNAPSHOT</version>
     <modules>
@@ -98,17 +98,11 @@
             <groupId>com.github.sgroschupf</groupId>
             <artifactId>zkclient</artifactId>
             <version>${zkclient.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.apache.zookeeper</groupId>
-                    <artifactId>zookeeper</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.9</version>
+            <version>4.12</version>
         </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
@@ -151,12 +145,6 @@
             <groupId>com.github.miemiedev</groupId>
             <artifactId>mybatis-paginator</artifactId>
             <version>${mybatis.paginator.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.mybatis</groupId>
-                    <artifactId>mybatis</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <!-- MySql -->
         <dependency>
@@ -170,13 +158,6 @@
             <artifactId>druid</artifactId>
             <version>${druid.version}</version>
         </dependency>
-        <!--fastdfs 这个jar包总是找不到，下载不下来。等用到了，到时候在看怎么解决吧
-        在网上找了下，有人讲这是一个传智私有的jar包。看看时候怎么解决。-->
-        <!--<dependency>-->
-            <!--<groupId>org.csource.fastdfs</groupId>-->
-            <!--<artifactId>fastdfs</artifactId>-->
-            <!--<version>1.2</version>-->
-        <!--</dependency>-->
         <!-- 文件上传组件 -->
         <dependency>
             <groupId>commons-fileupload</groupId>
@@ -230,12 +211,6 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-cas</artifactId>
             <version>4.1.0.RELEASE</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.jasig.cas.client</groupId>
-                    <artifactId>cas-client-core</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.jasig.cas.client</groupId>
@@ -282,6 +257,7 @@
         </dependency>
     </dependencies>
 
+
     <build>
 
         <plugins>
@@ -300,4 +276,5 @@
         </plugins>
 
     </build>
+
 </project>

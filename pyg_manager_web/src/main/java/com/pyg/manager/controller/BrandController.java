@@ -1,106 +1,87 @@
 package com.pyg.manager.controller;
 
 import bean.PageResult;
+import bean.Result;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.pyg.pojo.TbBrand;
-import com.pyg.sellergoods.service.TbBrandService;
-import entity.Result;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.pyg.sellergoods.service.BrandService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
-@RestController//此处要用此注解，不然返回值是页面，而不是JSON格式的数据。
+@RestController
 @RequestMapping("/brand")
 public class BrandController {
-    @Reference//注入dubbo容器中的service对象
-            TbBrandService tbBrandService;
 
+    @Reference  //远程注入
+    private BrandService brandService;
     /**
-     * 查询所有品牌数据
-     *
-     * @return
+     * 此方法是在添加模板时需要的 要求数据格式是 [{"id":"1","text":"华为"},{"id":"2","text":"小米"},{"id":"3","text":"锤子"}]
      */
+    @RequestMapping("/findBrandList")
+    public List<Map> findBrandList(){
+        return brandService.findBrandList();
+    }
+
+
     @RequestMapping("/findAll")
-    public List<TbBrand> findAll() {
-        return tbBrandService.findAll();
+    public List<TbBrand> findAll(){
+        return brandService.findAll();
     }
 
-    /**
-     * 分页查询所有品牌数据
-     *
-     * @param pageNo
-     * @param pageSize
-     * @return
-     */
+
     @RequestMapping("/findPage")
-    public PageResult findPage(Integer pageNo, Integer pageSize) {
-        return tbBrandService.findAll(pageNo, pageSize);
+    public PageResult findPage(Integer pageNo, Integer pageSize){
+//        {total:100,rows:[{},{}]}
+        return brandService.findPage(pageNo,pageSize);
+//        return null;
     }
-
-    /**
-     * 新增数据
-     *
-     * @param brand
-     * @return
-     */
     @RequestMapping("/add")
-    public Result add(@RequestBody TbBrand brand) {
-        Result result = new Result();
+    public Result add(@RequestBody TbBrand brand){ //@RequestBody是用来接收json数据的
+//        {success:true|false,message:"添加成功"|"添加失败"}
         try {
-            tbBrandService.add(brand);
-            result.setSuccess(true);
+            brandService.add(brand);
+            return new Result(true,"添加成功");
         } catch (Exception e) {
-            result.setSuccess(false);
-            result.setMsg("添加品牌出错：" + e.getMessage());
+            e.printStackTrace();
+            return new Result(false,"添加失败");
         }
-        return result;
+//        return null;
     }
-
-    /**
-     * 修改品牌数据方法
-     * @param brand 修改后的品牌数据
-     * @return Result 修改结果
-     */
+    @RequestMapping("/fineOne")
+    public TbBrand fineOne(Long id){
+          return   brandService.findOne(id);
+//        return null;
+    }
     @RequestMapping("/update")
-    public Result updateBrandById(@RequestBody TbBrand brand) {
+    public Result update(@RequestBody TbBrand brand){ //@RequestBody是用来接收json数据的
         try {
-            tbBrandService.updateBrandById(brand);
-            return  new Result(true,"修改成功");
+            brandService.update(brand);
+            return new Result(true,"修改成功");
         } catch (Exception e) {
-            return  new Result(false,"修改失败"+e.getMessage());
+            e.printStackTrace();
+            return new Result(false,"修改失败");
         }
-
     }
-
-    /**
-     * 根据品牌Id,查询品牌数据
-     * @param id
-     * @return
-     */
-    @RequestMapping("/findOne")
-    public TbBrand findBrandById(Integer id) {
-        return tbBrandService.findBrandById(id);
-    }
-    @RequestMapping("/delete")
-    public Result deleteBrandByByIds(Long[] ids) {
+    @RequestMapping("/dele")
+    public Result dele(Long[] ids){ //@RequestBody是用来接收json数据的
         try {
-            tbBrandService.deleteBrandByByIds(ids);
+            brandService.dele(ids);
             return new Result(true,"删除成功");
         } catch (Exception e) {
-            return new Result(false,"删除失败"+e.getMessage());
+            e.printStackTrace();
+            return new Result(false,"删除失败");
         }
     }
 
-    /**
-     * 修改品牌数据方法
-     * @param brand 修改后的品牌数据
-     * @return Result 修改结果
-     */
     @RequestMapping("/search")
-    public PageResult searchTbBrand(Integer pageNo, Integer pageSize,@RequestBody TbBrand brand) {
-
-return tbBrandService.searchBrand(pageNo,pageSize,brand);
+    public PageResult search(Integer pageNo, Integer pageSize,@RequestBody TbBrand tbBrand){
+//        {total:100,rows:[{},{}]}
+        return brandService.findPage(tbBrand,pageNo,pageSize);
+//        return null;
     }
 }

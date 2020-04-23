@@ -1,36 +1,31 @@
 package com.pyg.mapper;
 
 import com.pyg.pojo.TbSpecificationOption;
+import com.pyg.pojo.TbSpecificationOptionExample;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 public interface TbSpecificationOptionMapper {
-    /**
-     * 查询所有品牌数据
-     * @return
-     */
-    public List<TbSpecificationOption> findAll();
+    int countByExample(TbSpecificationOptionExample example);
 
-    /**
-     * 新增品牌
-     */
-    public void addOption(TbSpecificationOption tbOption);
-    /**
-     * 根据规格小项的spec_id，查询品牌数据
-     */
-    public List<TbSpecificationOption> findOptionById(Integer specId);
+    int deleteByExample(TbSpecificationOptionExample example);
 
-    /**
-     * 根据品牌ID，修改品牌数据
-     */
-    public void updateOptionById(TbSpecificationOption tbOption);
+    int deleteByPrimaryKey(Long id);
 
-    /**
-     * 根据品牌id删除品牌数据
-     * @param ids
-     */
-    void deleteOptionByByIds(@Param("ids") Long[] ids);
+    int insert(TbSpecificationOption record);
 
-    List<TbSpecificationOption> searchOption(TbSpecificationOption option);
+    int insertSelective(TbSpecificationOption record);
+
+    List<TbSpecificationOption> selectByExample(TbSpecificationOptionExample example);
+
+    TbSpecificationOption selectByPrimaryKey(Long id);
+
+    int updateByExampleSelective(@Param("record") TbSpecificationOption record, @Param("example") TbSpecificationOptionExample example);
+
+    int updateByExample(@Param("record") TbSpecificationOption record, @Param("example") TbSpecificationOptionExample example);
+
+    int updateByPrimaryKeySelective(TbSpecificationOption record);
+
+    int updateByPrimaryKey(TbSpecificationOption record);
 }

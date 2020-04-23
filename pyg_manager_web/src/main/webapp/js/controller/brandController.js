@@ -1,65 +1,74 @@
-//主要是和页面进行数据交互
+// 表现层  和页面数据交互
+app.controller("brandController",function ($scope,brandService,$controller) {
 
-app.controller("brandController" ,function ($scope,brandService,$controller) {
 
-  $controller("baseController",{$scope:$scope});//继承的固定语法
+    $controller("baseController",{$scope:$scope}); //brandController继承baseController的语法 extends
 
-    //页面加载时查询所有品牌数据方法
-    $scope.findAll = function () {
+    $scope.findAll=function () {
         brandService.findAll().success(function (response) {
             $scope.list = response;
         })
-    };
-    //保存||修改方法
+    }
+
+
+    // 保存方法
     $scope.save=function () {
         var obj=null;
-        if($scope.brand.id!=null){
-            obj= brandService.update($scope.brand);
+        if($scope.entity.id!=null){
+            obj = brandService.update($scope.entity);
         }else{
-            obj= brandService.add($scope.brand);
-
+           obj = brandService.add($scope.entity);
         }
-        obj.success(function (result) {
-            if(result.success){
+        obj.success(function (response) {
+            // response ={success:true|false,message:"添加成功"|"添加失败"}
+            if(response.success){
+                // 列表的数据刷新
                 $scope.reloadList();
-                // alert(result.msg);
             }else{
-                alert(result.msg);
+                alert(response.message);
             }
-        });
-    };
-
-    //根据品牌Id，查询品牌数据。用于数据的回显
-    $scope.findOne=function (id) {
-        brandService.findOne(id).success(function (resonse) {
-            $scope.brand=resonse;
         })
-    };
-    //删除数据，真实中应该是逻辑删除，而不是真正的删除。其实就是更新。
-    $scope.delete=function () {
+    }
+
+    // 根据id查询对象
+    $scope.findOne=function (id) {
+        brandService.findOne(id).success(function (response) {
+            $scope.entity=response;
+        })
+    }
+
+
+    // 删除
+    $scope.dele=function () {
+        // 判断数组中是否有值
         if($scope.selectIds.length==0){
-            alert("请选择要删除的品牌数据")
+            alert("请选择您需要删除的数据!");
             return;
-        }else{
-           brandService.delete($scope.selectIds).success(function (result) {
-                if(result.success){
-                    $scope.reloadList();
-                    $scope.selectIds=[];
+        }
+        var flag = window.confirm("确定要删除您选择的数据吗?");
+        if(flag){
+           brandService.dele($scope.selectIds).success(function (response) {
+                if(response.success){
+                    $scope.reloadList();//刷新列表数据
+                    $scope.selectIds=[];// 清空数组
                 }else{
-                    alert(result.msg);
+                    alert(response.message);
                 }
             })
         }
-    };
-
-
-    //模糊查询
-    $scope.searchEntity={};
-    $scope.search=function () {
-        brandService.search($scope.paginationConf.currentPage,$scope.paginationConf.itemsPerPage,$scope.searchEntity).success(function (response) {
-            $scope.paginationConf.totalItems = response.total;
-            $scope.list = response.rows;
-        })
-
     }
+
+    $scope.searchEntity={};
+
+    $scope.search=function (pageNo,pageSize) {
+        // $scope.searchEntity   页码  条数
+        brandService.search(pageNo,pageSize,$scope.searchEntity).success(function (response) {
+            // response:分页后的结果  当前也得数据list 总条数  {total:100,rows:[{},{}]}
+            $scope.list = response.rows;
+            $scope.paginationConf.totalItems = response.total;
+        })
+    }
+
+
+
 })

@@ -1,15 +1,14 @@
 package bean;
 
+import com.pyg.pojo.TbBrand;
+
 import java.io.Serializable;
 import java.util.List;
 
-/**
- * 分页专用pojo
- */
 public class PageResult implements Serializable {
-    //总条数
+
     private Long total;
-    //每页显示的数据
+
     private List rows;
 
     public PageResult(Long total, List rows) {

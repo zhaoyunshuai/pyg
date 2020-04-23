@@ -1,37 +1,34 @@
 package com.pyg.mapper;
 
-import bean.PageResult;
 import com.pyg.pojo.TbBrand;
+import com.pyg.pojo.TbBrandExample;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface TbBrandMapper {
-    /**
-     * 查询所有品牌数据
-     * @return
-     */
-    public List<TbBrand> findAll();
+    int countByExample(TbBrandExample example);
 
-    /**
-     * 新增品牌
-     */
-    public void addBrand(TbBrand tbBrand);
-    /**
-     * 根据品牌Id，查询品牌数据
-     */
-    public TbBrand findBrandById(Integer id);
+    int deleteByExample(TbBrandExample example);
 
-    /**
-     * 根据品牌ID，修改品牌数据
-     */
-    public void updateBrandById(TbBrand tbBrand);
+    int deleteByPrimaryKey(Long id);
 
-    /**
-     * 根据品牌id删除品牌数据
-     * @param ids
-     */
-    void deleteBrandByByIds(@Param("ids")Long[] ids);
+    int insert(TbBrand record);
 
-    List<TbBrand> searchBrand(TbBrand brand);
+    int insertSelective(TbBrand record);
+
+    List<TbBrand> selectByExample(TbBrandExample example);
+
+    TbBrand selectByPrimaryKey(Long id);
+
+    int updateByExampleSelective(@Param("record") TbBrand record, @Param("example") TbBrandExample example);
+
+    int updateByExample(@Param("record") TbBrand record, @Param("example") TbBrandExample example);
+
+    int updateByPrimaryKeySelective(TbBrand record);
+
+    int updateByPrimaryKey(TbBrand record);
+
+    List<Map> findBrandList();
 }

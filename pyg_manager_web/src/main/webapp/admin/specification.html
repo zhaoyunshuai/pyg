@@ -18,7 +18,7 @@
     
     <link rel="stylesheet" href="../plugins/angularjs/pagination.css">
     <script type="text/javascript" src="../plugins/angularjs/pagination.js"></script>
-    <script type="text/javascript" src="../js/base-pagination.js"></script>
+    <script type="text/javascript" src="../js/base_pagination.js"></script>
     <script type="text/javascript" src="../js/service/specificationService.js"></script>
     <script type="text/javascript" src="../js/controller/baseController.js"></script>
     <script type="text/javascript" src="../js/controller/specificationController.js"></script>
@@ -39,7 +39,7 @@
                             <div class="pull-left">
                                 <div class="form-group form-inline">
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-default" title="新建" ng-click="entity={optionList:[]}" data-toggle="modal" data-target="#editModal" ><i class="fa fa-file-o"></i> 新建</button>
+                                        <button type="button" class="btn btn-default" title="新建" ng-click="entity={tbSpecificationOptionList:[]}" data-toggle="modal" data-target="#editModal" ><i class="fa fa-file-o"></i> 新建</button>
                                         <button type="button" class="btn btn-default" ng-click="dele()" title="删除" ><i class="fa fa-trash-o"></i> 删除</button>
                                         
                                         <button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i class="fa fa-refresh"></i> 刷新</button>
@@ -48,8 +48,8 @@
                             </div>
                             <div class="box-tools pull-right">
                                 <div class="has-feedback">
-							                    规格名称：<input  >									
-									<button class="btn btn-default" ng-click="search()">查询</button>
+							                    规格名称：<input ng-model="searchEntity.specName" >
+									<button class="btn btn-default" ng-click="reloadList()">查询</button>
                                 </div>
                             </div>
                             <!--工具栏/-->
@@ -67,7 +67,7 @@
 			                      </thead>
 			                      <tbody>
 			                          <tr ng-repeat="pojo in list">
-			                              <td><input ng-click="updateSelection($event,pojo.id)"  type="checkbox" ></td>			                              
+			                              <td><input ng-click="updateSelections($event,pojo.id)"  type="checkbox" ></td>
 				                          <td>{{pojo.id}}</td>
 									      <td>{{pojo.specName}}</td>
 		                                  <td class="text-center">                                           
@@ -112,14 +112,16 @@
 			 <table class="table table-bordered table-striped table-hover dataTable">
                     <thead>
                         <tr>
+                          
+					 
 				      <th class="sorting">规格选项</th>
 				      <th class="sorting">排序</th>																
                       <th class="sorting">操作</th>	
                     </thead>
                     <tbody>
-<!--                     	private List<TbSpecificationOption> tbSpecificationOptions; -->
+<!--                     	private List<TbSpecificationOption> tbSpecificationOptionList; -->
 <!--                                [{},{},{}] -->
-                      <tr ng-repeat="pojo in entity.optionList">
+                      <tr ng-repeat="pojo in entity.tbSpecificationOptionList">
 				            <td>
 				            	<input  class="form-control" ng-model="pojo.optionName" placeholder="规格选项"> 
 				            </td>

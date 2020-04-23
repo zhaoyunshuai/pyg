@@ -3,11 +3,15 @@ package com.pyg.pojo;
 import java.io.Serializable;
 
 public class TbSpecificationOption implements Serializable {
-
     private Long id;
+
     private String optionName;
+
     private Long specId;
+
     private Integer orders;
+
+    private static final long serialVersionUID = 1L;
 
     public Long getId() {
         return id;
@@ -22,7 +26,7 @@ public class TbSpecificationOption implements Serializable {
     }
 
     public void setOptionName(String optionName) {
-        this.optionName = optionName;
+        this.optionName = optionName == null ? null : optionName.trim();
     }
 
     public Long getSpecId() {

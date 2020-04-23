@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MVC</title>
+
+
+
+
+    <script src="../plugins/angularjs/angular.min.js"></script>
+    <script>
+        // $scope html和js数据交互的入口
+        function myController1($scope){ // C  controller 控制器
+
+          $scope.username="zhangsan";
+            // M  model  变量 数据
+        }
+        function myController2($scope){
+
+            $scope.username="lisi";
+        //    M  model  变量 数据
+        }
+
+
+    </script>
+</head>
+<body  ng-app >
+<!--C  controller 控制器-->
+ <div ng-controller="myController1">
+     {{username}}
+     <!--V  view  视图  数据显示的代码-->
+ </div>
+
+
+ <div ng-controller="myController2">
+     {{username}}
+     <!--V  view  视图  数据显示的代码-->
+ </div>
+
+
+</body>
+</html>

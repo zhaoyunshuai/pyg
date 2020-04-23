@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>远程调用内置服务</title>
+
+    <script src="../plugins/angularjs/angular.min.js"></script>
+    <script>
+      var app = angular.module("myApp",[]); //订单模块的语法，“myApp”是模块的名称
+        // 一个模块下可以有多个控制器
+       // 在模块下定义一个控制器
+        app.controller("myController",function($scope,$http){
+            // http://localhost:8081/brand/findAll
+           $scope.findAll=function () {
+               $http.get("../brand/findAll").success(function(response){//response方法返回的数据
+
+                   $scope.list=response;
+
+
+               })
+           }
+
+
+        })
+    </script>
+</head>
+<body  ng-app="myApp" ng-controller="myController" ng-init="findAll()">
+     <div ng-repeat="pojo in list">
+       {{pojo.id}},   {{pojo.name}} ,{{pojo.firstChar}}
+     </div>
+</body>
+</html>

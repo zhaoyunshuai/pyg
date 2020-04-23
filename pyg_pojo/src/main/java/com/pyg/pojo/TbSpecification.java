@@ -1,10 +1,14 @@
 package com.pyg.pojo;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class TbSpecification implements Serializable {
     private Long id;
+
     private String specName;
+
+    private static final long serialVersionUID = 1L;
 
     public Long getId() {
         return id;
@@ -19,6 +23,6 @@ public class TbSpecification implements Serializable {
     }
 
     public void setSpecName(String specName) {
-        this.specName = specName;
+        this.specName = specName == null ? null : specName.trim();
     }
 }
