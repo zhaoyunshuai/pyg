@@ -29,6 +29,8 @@
 		<!--default-target-url登录成功后默认跳转的页面-->
 		<!-- authentication-failure-url登录失败后默认跳转的页面-->
 		<!--always-use-default-target：是否每次登录都跳转到default-target-url设置的页面-->
+		<logout logout-url="/logout" logout-success-url="/login.html"/>
+<!--logout标签，作用于注销按钮，指定了注销以后跳转的页面。	logout-url:可以不写，默认的为logout-->
 		<csrf disabled="true" />
 		<!--跨站请求伪造-->
 		<!-- iframe策略 -->
